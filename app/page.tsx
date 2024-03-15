@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   CardTitle,
@@ -13,20 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
-import {
-  useSession,
-  useUser,
-  getSessionToken,
-} from "@descope/nextjs-sdk/client";
-
-const RUN_QUERY = gql`
-  mutation AddItem($input: ItemInput!) {
-    addItem(input: $input) {
-      id
-      value
-    }
-  }
-`;
+import { useSession, getSessionToken } from "@descope/nextjs-sdk/client";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -34,39 +20,26 @@ export default function Home() {
   // const [data, setData] = useState();
   const { isAuthenticated } = useSession();
 
-  const [runQuery, { data, loading, error }] = useMutation(RUN_QUERY, {
-    onCompleted: (data) => {
-      setResponse(JSON.stringify(data, null, 2));
-    },
-  });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const sessionToken = getSessionToken();
+    console.log(sessionToken);
 
-  // const fetchData = async () => {
-  //   const sessionToken = getSessionToken();
-
-  //   await fetch(process.env.NEXT_PUBLIC_GRAFBASE_API_URL as string, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       authorization: `Bearer ${sessionToken}`,
-  //     },
-  //     body: JSON.stringify({ query }),
-  //   }).then((res) => res.json().then(({ data }) => setData(data)));
-  // };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    try {
-      await runQuery({
-        variables: {
-          input: {
-            /* your variables here */
-          },
-        },
+    await fetch(process.env.NEXT_PUBLIC_GRAFBASE_API_URL as string, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionToken}`,
+      },
+      body: JSON.stringify({ query }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setResponse(JSON.stringify(data, null, 2));
+      })
+      .catch((error) => {
+        setResponse(error.message);
       });
-    } catch (err: any) {
-      console.error(err);
-      setResponse(err.message);
-    }
   };
 
   return (
@@ -75,14 +48,26 @@ export default function Home() {
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
           Descope + Grafbase Sample App
         </h1>
-        <Link href={"/sign-in"}>
-          <Button
-            className="text-gray-900 dark:text-gray-100"
-            variant="outline"
-          >
-            Login
-          </Button>
-        </Link>
+        {!isAuthenticated && (
+          <Link href={"/sign-in"}>
+            <Button
+              className="text-gray-900 dark:text-gray-100"
+              variant="outline"
+            >
+              Login
+            </Button>
+          </Link>
+        )}
+        {isAuthenticated && (
+          <Link href={"/sign-out"}>
+            <Button
+              className="text-gray-900 dark:text-gray-100"
+              variant="outline"
+            >
+              Sign Out
+            </Button>
+          </Link>
+        )}
       </header>
       <main className="flex-1 overflow-y-auto p-4 md:p-6">
         <div className="grid gap-6 md:grid-cols-2">
@@ -97,17 +82,17 @@ export default function Home() {
               <form className="space-y-4" onSubmit={handleSubmit}>
                 <Label htmlFor="query">GraphQL Query or Mutation</Label>
                 <Textarea
-                  className="h-64"
                   id="query"
+                  className="h-64"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
                 <Button
                   className="w-full text-white"
                   type="submit"
-                  disabled={loading}
+                  disabled={!isAuthenticated}
                 >
-                  {loading ? "Running..." : "Run Query"}
+                  Run Query
                 </Button>
               </form>
             </CardContent>
@@ -119,7 +104,7 @@ export default function Home() {
             <CardContent>
               <div className="h-64 overflow-y-auto bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
                 <pre className="text-sm text-gray-900 dark:text-gray-100">
-                  {error ? error.message : response}
+                  {response}
                 </pre>
               </div>
             </CardContent>

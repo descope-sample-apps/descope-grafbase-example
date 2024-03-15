@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Descope } from "@descope/nextjs-sdk";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";

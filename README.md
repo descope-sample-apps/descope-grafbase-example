@@ -1,6 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<img width="1400" alt="Screenshot 2024-03-15 at 4 11 58 PM" src="https://github.com/descope-sample-apps/descope-grafbase-example/assets/32936811/e46d6995-b560-49f9-9cb5-08c35a0bd7e3">
 
-## Getting Started
+## Descope + Grafbase
 
 First, run the development server:
 

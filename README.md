@@ -57,7 +57,8 @@ DATABASE_URL="postgresql://..."
 DESCOPE_ISSUER_URL="https://api.descope.com/YOUR_DESCOPE_PROJECT_ID"
 ```
 
-- **Descope JWT**: Ensure AWS compliant JWTs are enabled in your Descope project. This is crucial for the authentication process to work seamlessly. The Issuer URL in the JWT must include `https://api.descope.com/` as a prefix.
+- **Descope JWT**: Ensure AWS compliant JWTs are enabled in your Descope project. This is crucial for the authentication process to work seamlessly. The Issuer URL in the JWT must include `https://api.descope.com/` as a prefix. <img width="700" alt="Monosnap Descope Console 2024-03-15 17-11-44" src="https://github.com/descope-sample-apps/descope-grafbase-example/assets/32936811/4e141ad7-bd54-45e3-97d3-d8924bab021f">
+
 
 ### Running the Grafbase Server
 

@@ -12,6 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
+import Image from "next/image";
 import { useSession, getSessionToken } from "@descope/nextjs-sdk/client";
 
 export default function Home() {
@@ -45,9 +46,13 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900">
       <header className="flex h-16 items-center justify-between px-4 md:px-6 bg-white dark:bg-gray-800 shadow-md">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-          Descope + Grafbase Sample App
-        </h1>
+        <Image
+          alt="Descope"
+          className="aspect-[1/1] overflow-hidden rounded-lg object-contain object-center"
+          height="40"
+          src="/descope-logo.png"
+          width="40"
+        />
         {!isAuthenticated && (
           <Link href={"/sign-in"}>
             <Button

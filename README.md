@@ -4,6 +4,8 @@
 
 This app showcases the power of using Grafbase with a Postgres database ([Neon](https://neon.tech/) in this case) as your data source and Descope for secure authentication. Perfect for Next.js developers aiming to spin up serverless backends quickly with advanced auth methods. :zap:
 
+<img width="1725" alt="image" src="https://github.com/descope-sample-apps/descope-grafbase-example/assets/32936811/03af6c43-5b84-493e-8044-78a65f92a2ea">
+
 ## Features :sparkles:
 
 - **Secure Authentication**: Utilizes Descope for robust user authentication.

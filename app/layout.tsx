@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { AuthProvider } from "@descope/nextjs-sdk";
 import { Inter as FontSans } from "next/font/google";

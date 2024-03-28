@@ -21,7 +21,7 @@ export default function Home() {
   // const [data, setData] = useState();
   const { isAuthenticated } = useSession();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     const sessionToken = getSessionToken();
     console.log(sessionToken);

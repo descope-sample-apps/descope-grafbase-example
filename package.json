@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.9.7",
-    "@descope/nextjs-sdk": "^0.0.3-alpha.1",
+    "@descope/nextjs-sdk": "^0.0.5",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
